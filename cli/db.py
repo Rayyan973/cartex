@@ -106,7 +106,7 @@ class Database:
         conn = self.get_conn()
         start = time.perf_counter()
         try:
-            with conn.cursor(cursor_factory = psycopg2.exteas.RealDictCursor) as cur:
+            with conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor) as cur:
                 cur.execute(sql, params)
                 rows = cur.fetchall() if fetch and cur.description else []
             conn.commit()
