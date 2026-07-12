@@ -55,3 +55,78 @@ psql -U postgres -d cartex -f seed/seed_data.sql
 
 python cli/main.py
 ```
+
+
+## ER Diagram
+```mermaid
+erDiagram
+    USERS ||--o{ CART_ITEMS   : owns
+    USERS ||--o{ ORDERS       : places
+
+    CATEGORIES ||--o{ CATEGORIES : parent_of
+    CATEGORIES ||--o{ PRODUCTS   : categorizes
+    
+    PRODUCTS ||--o{ CART_ITEMS   : appears_in
+    PRODUCTS ||--o{ ORDER_ITEMS  : appears_in
+    
+    ORDERS ||--|{ ORDER_ITEMS    : contains
+    ORDERS ||--o{ PAYMENTS       : has
+
+    USERS {
+        int       user_id PK
+        varchar   name
+        varchar   email UK
+        timestamp created_at
+    }
+
+    CATEGORIES {
+        int     category_id PK
+        varchar name
+        int     parent_category_id FK
+    }
+
+    PRODUCTS {
+        int       product_id PK
+        varchar   name
+        text      description
+        numeric   price
+        int       stock
+        int       category_id FK
+        timestamp created_at
+    }
+
+    CART_ITEMS {
+        int       cart_item_id PK
+        int       user_id FK
+        int       product_id FK
+        int       quantity
+        timestamp added_at
+    }
+
+    ORDERS {
+        int       order_id PK
+        int       user_id FK
+        enum      status
+        text      shipping_address
+        numeric   total_amount
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    ORDER_ITEMS {
+        int     order_item_id PK
+        int     order_id FK
+        int     product_id FK
+        int     quantity
+        numeric unit_price
+    }
+
+    PAYMENTS {
+        int       payment_id PK
+        int       order_id FK
+        numeric   amount
+        varchar   status
+        timestamp paid_at
+        timestamp created_at
+    }
+```
