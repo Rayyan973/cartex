@@ -12,9 +12,6 @@ import psycopg2.extras
 LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'logs')
 LOG_FILE = os.path.join(LOG_DIR, 'cartex.log')
 
-def _ensure_log_dir():
-    os.makedirs(LOG_DIR, exist_ok=True)
-
 class CartexLoggingFormatter(logging.Formatter):
     #formats log lines as "[TIMESTAMP] [LEVEL] COMMAND | SQL | TIME | STATUS"
 
@@ -36,7 +33,8 @@ class CartexLoggingFormatter(logging.Formatter):
 
 
 def setup_logger():
-    _ensure_log_dir()
+    os.makedirs(LOG_DIR, exist_ok=True)
+    
     logger = logging.getLogger("cartex")
     logger.setLevel(logging.DEBUG)
     if not logger.handlers:

@@ -1,3 +1,4 @@
+-- ai generated data coz idk how imma randomly generate that much
 -- =========================================================
 -- Cartex seed data
 -- Generates: ~20 categories, 500 users, 1000 products,
