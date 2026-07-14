@@ -12,4 +12,4 @@ def dispatch(arg):
     if not parts or parts[0] != "log":
         print("usage: audit log")
         return
-    show_log(parts[1:])
+    show_log()

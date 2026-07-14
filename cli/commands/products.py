@@ -3,7 +3,7 @@
 from cli.util import run, split_args
 
 def list_products():
-    sql = "SELECT product_id, name, price, stock, category_id FROM products ORDER BY product_id LIMIT 50;"
+    sql = "SELECT product_id, name, description, price, stock, category_id FROM products ORDER BY product_id LIMIT 50;"
     run("products list", sql)
 
 def search_products(args):
@@ -12,7 +12,7 @@ def search_products(args):
         return
     term = " ".join(args)
     #using full text search to find keyword in name or description
-    sql = "SELECT product_id, name, price, stock, category_id FROM products \
+    sql = "SELECT product_id, name, description, price, stock, category_id FROM products \
         WHERE to_tsvector('english', coalesce(name, '') || ' ' || coalesce(description, '')) \
             @@ plainto_tsquery('english', %s) \
         ORDER BY product_id LIMIT 50;"
@@ -26,9 +26,9 @@ def add_product(args):
     category_id = args[3] if len(args) > 3 else None
     description = " ".join(args[4:]) if len(args) > 4 else None
 
-    sql = "INSERT INTO products(name, description, price, stock, category_id) \
-        VALUES (%s, %s, %s, %s, %s) RETURNING product_id, name, price, stock, category_id;"
-    run("products add", sql, (name, description, price, stock, category_id))
+    sql = "INSERT INTO products(name, price, stock, category_id, description) \
+        VALUES (%s, %s, %s, %s, %s) RETURNING product_id, name, description, price, stock, category_id;"
+    run("products add", sql, (name, price, stock, category_id, description))
 
 
 def update_product(args):

@@ -16,7 +16,7 @@ def update_payment(args):
         return
     order_id, status = args
     # updates payment status and sets paid_at to current time if and only if status=paid
-    sql = "UPDATE payments SET status=%s, paid_at= CASE WHEN %s='paid, \
+    sql = "UPDATE payments SET status=%s, paid_at= CASE WHEN %s='paid' \
         THEN now() ELSE paid_at END WHERE order_id=%s RETURNING payment_id, order_id, amount, status, paid_at;"
     run("payments update", sql, (status, status, order_id))
 

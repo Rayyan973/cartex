@@ -8,8 +8,8 @@ def add_to_cart(args):
         return
     user_id, product_id, qty = args
     sql = "INSERT INTO cart_items(user_id, product_id, quantity) \
-        VALUES (%s, %s, %s);\
-        ON CONFLICT (user_id, product_id) DO UPDATE SET quantity = cart_items.quantity + EXCLUDED.quantity;\
+        VALUES (%s, %s, %s) \
+        ON CONFLICT (user_id, product_id) DO UPDATE SET quantity = cart_items.quantity + EXCLUDED.quantity \
         RETURNING cart_item_id, user_id, product_id, quantity;"
     run("cart add", sql, (user_id, product_id, qty))
 

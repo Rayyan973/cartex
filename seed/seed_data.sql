@@ -57,7 +57,7 @@ FROM generate_series(1, 500) AS g;
 -- planner since it has no correlated reference to the outer row.
 INSERT INTO products (name, description, price, stock, category_id, created_at)
 SELECT
-    'Product ' || g,
+    'Product_' || g,
     'Description for product ' || g || ' - a quality item.',
     round((random() * 495 + 5)::numeric, 2),
     floor(random() * 200)::int,

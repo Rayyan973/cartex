@@ -55,7 +55,7 @@ def log_command(command, sql, time_ms, status, level=logging.INFO, extra_message
         extra={
             "command": command,
             "sql": (str(sql) or "-").replace("\n", " ").strip(),
-            "time_ms": f"{float(time_ms):.2f}ms",
+            "time_ms": f"{float(time_ms):.2f}",
             "status": status
         },
     )
@@ -67,7 +67,7 @@ def log_exception(command, sql, time_ms, exc):
         extra={
             "command": command,
             "sql": (str(sql) or "-").replace("\n", " ").strip(),
-            "time_ms": f"{float(time_ms):.2f}ms",
+            "time_ms": f"{float(time_ms):.2f}",
             "status": "FAILURE",
             "error": str(exc),
         },

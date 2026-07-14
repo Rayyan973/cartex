@@ -19,7 +19,7 @@ CREATE OR REPLACE VIEW top_products_sold AS
 SELECT
     p.product_id,
     p.name,
-    SUM(oi.quantity) as units_sold,
+    SUM(oi.quantity) as units_sold
 FROM products p
 JOIN order_items oi ON oi.product_id = p.product_id
 JOIN orders o ON o.order_id = oi.order_id AND o.status <> 'cancelled'

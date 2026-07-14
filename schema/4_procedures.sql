@@ -9,12 +9,12 @@ CREATE OR REPLACE PROCEDURE place_order(
 LANGUAGE plpgsql
 AS $$
 DECLARE
-    i INT,
-    v_product INT,
-    v_qty INT,
-    v_stock INT,
-    v_price NUMERIC(12, 2),
-    v_total NUMERIC(12, 2) := 0, --default value is 0
+    i INT;
+    v_product INT;
+    v_qty INT;
+    v_stock INT;
+    v_price NUMERIC(12, 2);
+    v_total NUMERIC(12, 2) := 0; --default value is 0
     v_order_id INT;
 BEGIN
     -- TODO: validate input array length
@@ -28,11 +28,11 @@ BEGIN
         v_qty := p_quantities[i];
 
         SELECT stock, price INTO v_stock, v_price
-        FROM products WHERE product_id = v_product;
+        FROM products WHERE product_id = v_product
         FOR UPDATE; --lock the row for update
 
         IF NOT FOUND THEN
-            RAISE EXCEOPTION 'product % doesnt exist man watchu doing', v_product;
+            RAISE EXCEPTION 'product % doesnt exist man watchu doing', v_product;
         END IF;
 
         IF v_stock < v_qty THEN
@@ -55,7 +55,7 @@ BEGIN
     INSERT INTO payments(order_id, amount, status)
     VALUES (v_order_id, v_total, 'pending');
 
-    DELETE FROM cart_items WHERE user_id = p_iser_id;
+    DELETE FROM cart_items WHERE user_id = p_user_id;
 
     p_order_id := v_order_id; --return the order id to the caller
 END;

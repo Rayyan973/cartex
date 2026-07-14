@@ -45,8 +45,8 @@ BEGIN
             'products',
             NEW.product_id,
             'UPDATE',
-            jsonb_build_object('price', OLD.unit_price),
-            jsonb_build_object('price', NEW.unit_price)
+            jsonb_build_object('price', OLD.price),
+            jsonb_build_object('price', NEW.price)
         );
     END IF;
     RETURN NEW;
@@ -57,7 +57,7 @@ DROP TRIGGER IF EXISTS log_price_change ON products;
 CREATE TRIGGER log_price_change
     AFTER UPDATE ON products
     FOR EACH ROW
-    WHEN (OLD.unit_price IS DISTINCT FROM NEW.unit_price)
+    WHEN (OLD.price IS DISTINCT FROM NEW.price)
     EXECUTE FUNCTION fn_log_price_change();
 
 

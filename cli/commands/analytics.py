@@ -21,7 +21,7 @@ def dispatch(arg):
     sub = parts[0]
     if sub == "revenue":
         revenue()
-    elif sub == "top_products":         
+    elif sub == "top_products":
         top_products()
     elif sub == "clv":
         clv()

@@ -3,7 +3,7 @@
 import shlex
 from tabulate import tabulate
 from cli import db
-from cli.db import log_command, log_exception
+from cli.db import db, log_command, log_exception
 
 def split_args(args):
     try:

@@ -130,3 +130,11 @@ erDiagram
         timestamp created_at
     }
 ```
+
+---
+
+### TODO:
+- [ ] single cmd to show schema (tables), useful for custon queries
+- [ ] check payment status input to be one of certain keywords to avoid random gobbledegook in status column
+- [ ] fix ```products delete <id>``` (throws foreign key error)
+- [ ] get ```clear``` to work inside the cli (ctrl+l works fine tho)
